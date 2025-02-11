@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>useRef Example</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function Message() {
+        React.useEffect(() => {
+          alert("This is a useEffect Example.");
+        });
+        return <h2> Hello User </h2>;
+      }
+
+      function Focus() {
+        const inputRef = React.useRef(null);
+
+        React.useEffect(() => {
+          inputRef.current.focus();
+        });
+
+        return (
+          <div>
+            <h2> Input Box </h2>
+            <input ref={inputRef} type="email" placeholder="Enter Text" />
+          </div>
+        );
+      }
+
+      function LocalStorageExample() {
+        const [text, setText] = React.useState(
+          localStorage.getItem("Text") || ""
+        );
+
+        React.useEffect(() => {
+          localStorage.setItem("Text", text);
+        });
+
+        return (
+          <>
+            <h2> AutoSave and Retreive Text </h2>
+            <textarea
+              value={text}
+              onChange={(event) => setText(event.target.value)}
+            />
+          </>
+        );
+      }
+
+      function KeyLogger() {
+        React.useEffect(() => {
+          function logEvent(event) {
+            alert(`Key Pressed : ${event.key}`);
+          }
+
+          window.addEventListener("keydown", logEvent);
+
+          return () => {
+            window.removeEventListener("keydown", logEvent);
+          };
+        }, []);
+
+        return <h2> Press any Key </h2>;
+      }
+
+      function UpdateCount() {
+        const [count, setCount] = React.useState(0);
+        React.useEffect(() => {
+          document.title = `Count : ${count}`;
+        }, [count]);
+
+        return (
+          <div>
+            <h2> Count </h2>
+            <button onClick={() => setCount(count + 1)}> Click </button>
+          </div>
+        );
+      }
+
+      function FetchAPI() {
+        const [data, setData] = React.useState(null);
+
+        React.useEffect(() => {
+          fetch("https://jsonplaceholder.typicode.com/posts/1")
+            .then((response) => response.json())
+            .then((json) => setData(json));
+        }, []);
+
+        return data ? (
+          <h2> Posts Title: {data.title}</h2>
+        ) : (
+          <h2> Fetching Data ..</h2>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<FetchAPI />);
+    </script>
+  </body>
+</html>

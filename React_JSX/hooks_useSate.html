@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Components Demo</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      // Component state with hook example
+      //
+      /*
+      function Counter() {
+        let [count, setCount] = React.useState(0); //Hooks-> use  //variable, setVariable
+
+        return (
+          <div>
+            <button onClick={() => setCount(count + 1)}>Count: {count}</button>
+          </div>
+        );
+      }
+
+      function DecrementCounter() {
+        let [decrement, setDecrement] = React.useState(10);
+
+        function decrementing() {
+          setDecrement(decrement - 1);
+        }
+
+        return (
+          <>
+            <button onClick={decrementing}>Dec :{decrement}</button>
+          </>
+        );
+      }
+
+      function App() {
+        return (
+          <div>
+            <Counter />
+            <DecrementCounter />
+            <Counter />
+          </div>
+        );
+      }
+          */
+      // Conditional rendering example
+      //
+      /*
+      function AComponent() {
+        return <h1>I'm an A Component</h1>;
+      }
+
+      function BComponent() {
+        return <h1>I'm a B Component</h1>;
+      }
+
+      function SwitchComponent() {
+        let [mode, setMode] = React.useState("a");
+
+        let toRender;
+        if (mode == "a") toRender = <AComponent />;
+        else toRender = <BComponent />;
+
+        function switchMode() {
+          if (mode == "a") setMode("b");
+          else setMode("a");
+        }
+
+        return (
+          <div>
+            <button onClick={switchMode}>Switch</button>
+            {toRender}
+          </div>
+        );
+      }
+
+      function App() {
+        return <SwitchComponent />;
+      }
+          */
+      // Conditional Rendering example with onChange event
+      /*
+      function StudentProfile() {
+        const [name, setName] = React.useState("");
+        const [age, setAge] = React.useState("");
+
+        return (
+          <div>
+            <input
+              type="text"
+              placeholder="Enter Name"
+              onChange={(event) => setName(event.target.value)}
+            />
+            <br />
+            <input
+              type="text"
+              placeholder="Enter Age"
+              onChange={(event) => setAge(event.target.value)}
+            />
+            <p>
+              Name: {name}
+              <br />
+              Age:{age}
+            </p>
+          </div>
+        );
+      }
+
+      function App() {
+        return <StudentProfile />;
+      }
+
+      // Conditional Rendering example with onClick event
+      /*
+      function ConditionalRendering() {
+        const [isVisible, setVisible] = React.useState(true);
+
+        return (
+          <>
+            <button onClick={() => setVisible(!isVisible)}>
+              {isVisible ? "Hide Info " : "Show Info"}
+            </button>
+            {isVisible ? (
+              <ul>
+                <li> Name </li>
+                <li> Age </li>
+              </ul>
+            ) : (
+              <p> The Student Info is hidden</p>
+            )}
+          </>
+        );
+      }
+              */
+      // Producing a list (table rows) demo
+      //
+      /*
+      function ListDemo() {
+        let comments = [
+          { body: "good", author: "joe" },
+          { body: "bad", author: "mark" },
+          { body: "great", author: "mary" },
+        ];
+
+        return (
+          <table>
+            <tbody>
+              <tr>
+                <th>Body</th>
+                <th>Author</th>
+              </tr>
+              {comments.map((comment) => (
+                <tr key={comment.author}>
+                  <td>{comment.body}</td>
+                  <td>{comment.author}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        );
+      }
+          */
+      //Example of List Rendering using map
+      /*
+      function ListRendering() {
+        const names = ["Joe", "Mark", "Mary"];
+
+        return (
+          <>
+            <h2> Names</h2>
+            <ul>
+              {names.map((name, index) => (
+                <li key={index}>{name}</li>
+              ))}
+            </ul>
+          </>
+        );
+      }
+
+      function App() {
+        return (
+          <div>
+            <ListDemo />
+            <br />
+            <hr />
+            <ListRendering />
+          </div>
+        );
+      }
+          */
+
+      //Example of Array Rendering using map
+      /*
+      function ProductList() {
+        const products = [
+          { id: 1, name: "Table", price: "999" },
+          { id: 2, name: "Chair", price: "499" },
+          { id: 3, name: "Laptop", price: "1999" },
+          { id: 4, name: "Mouse", price: "99" },
+        ];
+
+        const [cart, setCart] = React.useState([]);
+
+        const addPrToCart = (product) => {
+          setCart([...cart, product]);
+          alert(`${product.name} is added to the cart`);
+        };
+
+        return (
+          <>
+            <h2> Products List</h2>
+            <ul>
+              {products.map((product) => (
+                <li key={product.id}>
+                  {product.name} - {product.price}{" "}
+                  <button onClick={() => addPrToCart(product)}>
+                    Add to Cart
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <h2> Shopping Cart </h2>
+            <ul>
+              {cart.map((product, index) => (
+                <li key={index}>
+                  {product.name}{" "}
+                  <button onClick={() => removeFrCart(product)}>X</button>
+                </li>
+              ))}
+            </ul>
+          </>
+        );
+      }
+*/
+      // Form input demonstration 1 with OnChange and onClick
+      //
+      /*
+      function FormDemo() {
+        let [text, setText] = React.useState("");
+        let [count, setCount] = React.useState(0);
+
+        return (
+          <div>
+            <input
+              type="text"
+              value={text}
+              onChange={(event) => setText(event.target.value)}
+            />{" "}
+            <br />
+            <button onClick={() => setCount(text.length)}>Get Count</button>
+            <p>Character Count: {count} </p>
+          </div>
+        );
+      }
+*/
+      // Form input demonstration 2 with OnChange and onSubmit for forms
+
+      /*
+
+      function DemoForm() {
+        const [email, setEmail] = React.useState("");
+        const [password, setPassword] = React.useState("");
+        const [error, setError] = React.useState("");
+
+        const formSubmit = (event) => {
+          event.preventDefault();
+          if (!email || !password) {
+            setError("All Fields are Required!");
+          } else {
+            setError("");
+            alert(`Welcome back, ${email}`);
+          }
+        };
+
+        return (
+          <div>
+            <form onSubmit={formSubmit}>
+              <label>Email :</label>
+              <input
+                type="email"
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="Enter Email"
+              />
+              <br />
+              <label>Password :</label>
+              <input
+                type="password"
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="Enter Password"
+              />
+              <p>{error}</p>
+
+              <button type="Submit"> Login</button>
+            </form>
+          </div>
+        );
+      }
+
+      function App() {
+        return <FormDemo />;
+      }
+*/
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this page for starting a new React project with JSX:
+      https://react.dev/learn/start-a-new-react-project
+
+      Read this page for adding React with JSX to an existing project:
+      https://react.dev/learn/add-react-to-an-existing-project
+    -->
+  </body>
+</html>

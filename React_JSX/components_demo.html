@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Components Demo</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      // Uncomment each example to try them out
+
+      function App() {
+        return <MyComponent />;
+      }
+
+      // Defining a component, demonstrating how a component can render another
+      // component
+      /*
+            function MyComponent() {
+              return <p>This is My component!</p>;
+            }
+
+            function MyGreetings() {
+              return <h1 id="h1">Welcome to the Session</h1>;
+            }
+
+            function Random() {
+              let random = Math.floor(Math.random() * 100);
+              return (
+                <div> // either use div
+                  <> // or fragments
+                  <h2> Random: {random}</h2>
+                  <p> This is an example of Math function</p>
+                </>
+                  </div>
+              );
+            }
+
+            function PersonalizedGreeting(props) {
+              return <h1 id="h1"> Hello, {props.name} Welcome to the Session</h1>;
+            }
+
+            function App() {
+              return (
+                <div>
+                  <MyComponent />
+                  <br />
+                  <MyGreetings />
+                  <br />
+                  <PersonalizedGreeting />
+                  <br />
+                  <PersonalizedGreeting name="John" />
+                  <Random />
+                </div>
+              );
+            }
+      */
+      // Demonstration of props and default prop values
+      //
+      /*
+      function ComponentWithProps(props) {
+        return (
+          <div>
+            <p>
+              <strong>Value A:</strong> {props.valueA}
+            </p>
+            <p>
+              <strong>Value B:</strong> {props.valueB}
+            </p>
+            <p>
+              <strong>Value C:</strong> {props.valueC}
+            </p>
+          </div>
+        );
+      }
+
+      ComponentWithProps.defaultProps = {
+        valueA: -100,
+        valueB: -200,
+      };
+      
+            function App() {
+              return (
+                <div>
+                  <ComponentWithProps valueA={5} valueB={10} />
+                  <ComponentWithProps valueB={40} valueC={12} />
+                </div>
+              );
+            }
+       */
+      // Calculating and displaying a value example...
+      //
+      /*
+      function LuckyNumber() {
+        //      0 - 0.999... * 49 = Math.floor(0 ... 48.999) 0-48 + 1->1..49
+        let luckyNumber = Math.floor(Math.random() * 49) + 1;
+
+        return (
+          <div>
+            <h1>Lucky Number Generator</h1>
+            <p>
+              <strong>Lucky Number:</strong> {luckyNumber}{" "}
+            </p>
+          </div>
+        );
+      }
+
+      function App() {
+        return <LuckyNumber />;
+      }
+          */
+      // Example of event handling function
+      //
+      /*
+      function ButtonDemo() {
+        function sayHi() {
+          alert("HI!!!!!!");
+        }
+
+        return (
+          <div>
+            <button onClick={sayHi}> Click Me </button>
+          </div>
+        );
+      }
+*/
+      function App() {
+        return <ButtonDemo />;
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this page for starting a new React project with JSX:
+      https://react.dev/learn/start-a-new-react-project
+
+      Read this page for adding React with JSX to an existing project:
+      https://react.dev/learn/add-react-to-an-existing-project
+    -->
+  </body>
+</html>
