@@ -8,14 +8,15 @@
 
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="root"></div>
     <script type="text/babel">
       function App() {
         const allFruits = ["Apple", "Orange", "Banana", "Watermelon", "Grapes"];
-        const [basket, setBasket] = React.useSate(allFruits);
-        const [picked, setPicked] = React.useSate([]);
+        const [basket, setBasket] = React.useState(allFruits);
+        const [picked, setPicked] = React.useState([]);
 
         const [selected, setSelected] = React.useState(null);
 
@@ -27,8 +28,74 @@
           const newFruit = basket[randomFruitIndex];
 
           setPicked([...picked, newFruit]);
-          setBasket(basket.filter((index) => index !== randomFruitIndex));
+          setBasket(basket.filter((_, index) => index !== randomFruitIndex));
         }
+
+        function reset() {
+          /*
+            This function is for resetting the basket
+          */
+          setBasket(allFruits);
+          setPicked([]);
+        }
+
+        function tossFruit_09() {
+          /*
+            This function is for removing the fruits in the basket
+          */
+          if (!selected) return;
+          setPicked(picked.filter((fruit) => fruit !== selected));
+          setSelected(null);
+        }
+
+        function shuffleFruits_09() {
+          /*
+            This function is for shuffling the fruits in the basket
+          */
+          setPicked([...picked].sort(() => Math.random() - 0.5));
+        }
+
+        function addWildFruit() {
+          /*
+            This function is for adding wild fruits in the basket
+          */
+          const randomWildFruit =
+            allFruits[Math.floor(Math.random() * allFruits.length)];
+          setPicked([...picked, randomWildFruit]); //Allows this to add a random Wild Fruit, Fruits can be duplicate
+        }
+
+        function toggleSelection(fruit) {
+          if (selected === fruit) {
+            setSelected(null);
+          } else {
+            setSelected(fruit);
+          }
+        }
+
+        return (
+          <div>
+            {/*Basket */}
+            <div className="basket" onClick={pickRandomFruit}>
+              {basket.length > 0 ? "Pick a Fruit" : "No fruits in the basket"}
+            </div>
+            {/* Display the picked Fruits*/}
+            <div>
+              {picked.map((fruit, index) => (
+                <span
+                  key={index}
+                  className={`fruit ${selected === fruit ? "picked" : ""}`}
+                  onClick={() => toggleSelection(fruit)}
+                >
+                  {fruit}
+                </span>
+              ))}
+            </div>
+            <button onClick={reset}>Reset </button>
+            <button onClick={tossFruit_09}>Toss </button>
+            <button onClick={shuffleFruits_09}>Shuffle </button>
+            <button onClick={addWildFruit}>Wildfruit </button>
+          </div>
+        );
       }
       const container = document.getElementById("root");
       const root = ReactDOM.createRoot(container);
