@@ -12,6 +12,24 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
+      function App() {
+        const allFruits = ["Apple", "Orange", "Banana", "Watermelon", "Grapes"];
+        const [basket, setBasket] = React.useSate(allFruits);
+        const [picked, setPicked] = React.useSate([]);
+
+        const [selected, setSelected] = React.useState(null);
+
+        function pickRandomFruit() {
+          if (basket.length === 0) return;
+
+          const randomFruitIndex = Math.floor(Math.random() * basket.length);
+
+          const newFruit = basket[randomFruitIndex];
+
+          setPicked([...picked, newFruit]);
+          setBasket(basket.filter((index) => index !== randomFruitIndex));
+        }
+      }
       const container = document.getElementById("root");
       const root = ReactDOM.createRoot(container);
       root.render(<App />);
