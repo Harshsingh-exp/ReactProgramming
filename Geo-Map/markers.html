@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Map Marker Demo</title>
+    <style>
+      /* The height and width of the div will become the dimensions of the map! */
+      #map {
+        height: 700px;
+        width: 1400px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <br />
+    <button id="add_fennell">Add Fennell Marker</button>
+    <button id="remove_fennell">Remove Fennell Marker</button>
+    <button id="add_aviation">Add Airport Marker</button>
+    <button id="remove_aviation">Remove Airport Marker</button>
+    <button id="add_marketstreet">Add Market Street Marker</button>
+    <button id="remove_marketstreet">Remove Market Marker</button>
+
+    <script type="module">
+      import { MAP_KEY } from "../map_key.js";
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${MAP_KEY}&loading=async&callback=initMap&libraries=marker`;
+      script.async = true;
+      document.head.appendChild(script);
+    </script>
+    <script>
+      let map, mohawk_marker;
+
+      function initMap() {
+        // the latitude and longitude of mohawk college fennell campus
+
+        let maploc = { lat: 43.24033, lng: -79.90986 };
+        // Create a Google Map centered on Mohawk College fennell campus
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: maploc,
+          zoom: 12,
+          mapId: "MAP_ID_GOES_HERE",
+        });
+      }
+
+      function addFennellMarker() {
+        let mohawkloc = { lat: 43.2387, lng: -79.8881 };
+        // create a marker centered on Mohawk College fennell campus
+        mohawk_marker = new google.maps.marker.AdvancedMarkerElement({
+          map: map,
+          position: mohawkloc,
+          title: "Mohawk College", // will appear when we hover over the marker
+        });
+      }
+
+      document
+        .getElementById("add_fennell")
+        .addEventListener("click", addFennellMarker);
+      // removes the Fennell campus marker from the map
+      function removeFennellMarker() {
+        mohawk_marker.position = null;
+      }
+
+      // sets up a click handler event on the remove fennell button
+      document
+        .getElementById("remove_fennell")
+        .addEventListener("click", removeFennellMarker);
+
+      // adds the aviation campus marker to the map
+      function addAviationCampus() {
+        let aviation = { lat: 43.1632, lng: -79.9266 };
+
+        // create a marker centered on the airport campus
+        aviation_marker = new google.maps.marker.AdvancedMarkerElement({
+          map: map,
+          position: aviation,
+          title: "Mohawk College Aviation Campus", // will appear when we hover over the marker
+        });
+      }
+
+      // sets up a click handler event on the add aviation campus button
+      document
+        .getElementById("add_aviation")
+        .addEventListener("click", addAviationCampus);
+
+      // removes the Fennell campus marker from the map
+      function removeAviationMarker() {
+        aviation_marker.position = null;
+      }
+
+      // sets up a click handler event on the remove fennell button
+      document
+        .getElementById("remove_aviation")
+        .addEventListener("click", removeAviationMarker);
+
+      function addMarketStreetCampus() {
+        let market = { lat: 43.26331, lng: -79.87618 };
+
+        // create a marker centered on the airport campus
+        market_marker = new google.maps.marker.AdvancedMarkerElement({
+          map: map,
+          position: market,
+          title: "Mohawk College Market Street Campus", // will appear when we hover over the marker
+        });
+      }
+
+      // sets up a click handler event on the add aviation campus button
+      document
+        .getElementById("add_marketstreet")
+        .addEventListener("click", addMarketStreetCampus);
+
+      function removeMarketStreetMarker() {
+        market_marker.position = null;
+      }
+
+      document
+        .getElementById("remove_marketstreet")
+        .addEventListener("click", removeMarketStreetMarker);
+
+      // content string for the infowindow, it can include HTML!
+      contentString =
+        "<h3>Mohawk College Fennell Campus</h3>" +
+        "<p>Address: 135 Fennell Ave, Hamilton" +
+        'width="100">';
+
+      // create the infowindow
+      const fennellInfoWindow = new google.maps.InfoWindow({
+        content: contentString,
+      });
+
+      // open the info window with the tim horton field marker as the anchor
+      // infowindow.open({
+      //   anchor: thf_marker,
+      //   shouldFocus: false,
+      // });
+
+      fennell_marker.addEventListener("click", () => {
+        fennellInfoWindow.open(map, fennell_marker);
+      });
+
+      contentString_market =
+        "<h3>Mohawk College MArket Campus</h3>" +
+        "<p>Address: 435 Market Ave, Hamilton" +
+        'width="100">';
+
+      const marketInfoWindow = new google.maps.InfoWindow({
+        content: contentString_market,
+      });
+
+      market_marker.addEventListener("click", () => {
+        marketInfoWindow.open(map, market_marker);
+      });
+    </script>
+  </body>
+</html>
