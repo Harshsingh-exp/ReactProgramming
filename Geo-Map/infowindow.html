@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Map Infowindow Demo</title>
+    <style>
+      /* The height and width of the div will become the dimensions of the map! */
+      #map {
+        height: 700px;
+        width: 1400px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <br />
+
+    <script type="module">
+      import { MAP_KEY } from "../map_key.js";
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${MAP_KEY}&loading=async&callback=initMap&libraries=marker`;
+      script.async = true;
+      document.head.appendChild(script);
+    </script>
+    <script>
+      let map, thf_marker;
+
+      function initMap() {
+        // the latitude and longitude of tim hortons field
+        let thf_loc = { lat: 43.2522, lng: -79.8301 };
+
+        // Create a Google Map centered on Tim Hortons Field
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: thf_loc,
+          zoom: 16,
+          mapId: "MAP_ID_GOES_HERE",
+        });
+
+        // create a marker centered on Tim Hortons Field
+        thf_marker = new google.maps.marker.AdvancedMarkerElement({
+          map: map,
+          position: thf_loc,
+          title: "Tim Hortons Field", // will appear when we hover over the marker
+        });
+
+        // content string for the infowindow, it can include HTML!
+        contentString =
+          "<h3>Tim Hortons Field</h3>" +
+          '<p>Home of the <a href="https://ticats.ca/" target="_blank">' +
+          'Hamilton Tiger-Cats</a> and <a href="https://forgefc.canpl.ca/"' +
+          'target="_blank">Forge FC</a>, with a capacity of 24,000. <br /><br />' +
+          '<img src="https://assets-sports.thescore.com/football/team/312/logo.png"' +
+          'width="100">';
+
+        // create the infowindow
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString,
+        });
+
+        // open the info window with the tim horton field marker as the anchor
+        infowindow.open({
+          anchor: thf_marker,
+          shouldFocus: false,
+        });
+      }
+    </script>
+  </body>
+</html>
